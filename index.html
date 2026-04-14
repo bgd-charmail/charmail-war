@@ -552,9 +552,9 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
     <p style="font-size:10px;color:var(--text-muted);margin-top:8px;">+1 176 non-sellable bottles (USA) not included in total.</p>
   </div>
 
-  <!-- 07 WEEKLY TRENDS -->
+  <!-- 07 MONTHLY TRENDS -->
   <div class="section">
-    <div class="section-head"><span class="section-number">07</span><h2>Weekly Trends — Revenue & Cases</h2><span class="period">Jan – Apr 2026</span></div>
+    <div class="section-head"><span class="section-number">07</span><h2>Monthly Trends — Revenue & Cases</h2><span class="period">Jan – Apr 2026</span></div>
 
     <div class="chart-tabs">
       <button class="ctab active" onclick="showChart('rev',this)">Revenue (€)</button>
@@ -571,7 +571,7 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
         <canvas id="casesChart"></canvas>
       </div>
     </div>
-    <p style="font-size:10px;color:var(--text-muted);margin-top:8px;">W7 (Feb 9) & W8 (Feb 16) revenue spikes = Pierre Wyss 13 605 € + Secret Wines 7 434 € stock orders. DC cases = Direct Circle only, excl. samples & stock partners. W14+W15 combined.</p>
+    <p style="font-size:10px;color:var(--text-muted);margin-top:8px;">February revenue spike = Pierre Wyss 13 605 € + Secret Wines 7 434 € (stock partner orders). DC cases = Direct Circle only, excl. samples & stock partners. April = W14+W15 only (up to Apr 12).</p>
   </div>
 
   <div class="footer">
@@ -587,18 +587,20 @@ function switchTab(id,btn){document.querySelectorAll('.panel').forEach(p=>p.clas
 function toggleDetail(btn){const l=btn.nextElementSibling;const o=l.classList.contains('open');l.classList.toggle('open');btn.textContent=o?'▸ '+btn.textContent.slice(2):'▾ hide';}
 function showChart(id,btn){document.querySelectorAll('.chart-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));document.getElementById('chart-'+id).classList.add('active');btn.classList.add('active');}
 
-const labels = ['W2\nJan 5','W3\nJan 12','W4\nJan 19','W5\nJan 26','W6\nFeb 2','W7\nFeb 9','W8\nFeb 16','W9\nFeb 23','W10\nMar 2','W11\nMar 9','W12\nMar 16','W13\nMar 23','W14+W15\nMar 30'];
-const revDC    = [2489,3498,2146,1145,1345,585,816,4289,554,101,3954,3703,7365];
-const revPart  = [0,50,105,0,0,13605,7434,0,0,0,0,0,0];
-const casesDC  = [2.75,13.00,8.75,6.00,5.50,3.00,1.58,16.08,7.00,1.00,14.08,13.25,30.92];
+// Monthly aggregation
+// Jan: W2(2489 DC)+W3(3498+50)+W4(2146+105)+W5(1145) = 9278 total, DC=9278 rev, cases=2.75+13+8.75+6=30.5
+// Feb: W6(1345)+W7(585+13605)+W8(816+7434)+W9(4289) = 28074 total, DC rev=7035, cases=5.5+3+1.58+16.08=26.16
+// Mar: W10(554)+W11(101)+W12(3954)+W13(3703) = 8312 total, DC=8312, cases=7+1+14.08+13.25=35.33
+// Apr (W14+W15): DC=7365, cases=30.92
 
-const chartDefaults = {
-  responsive:true, maintainAspectRatio:false,
-  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toLocaleString('fr-FR')}} },
-  scales:{
-    x:{ grid:{display:false}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', maxRotation:0} },
-    y:{ grid:{color:'rgba(27,58,107,0.06)'}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD'} }
-  }
+const labels = ['Janvier', 'Février', 'Mars', 'Avril (W14+W15)'];
+const revDC   = [9278, 7035, 8312, 7365];
+const revPart = [0, 21089, 0, 0];  // Wyss 13605 + Secret Wines 7434 in Feb
+const casesDC = [30.50, 26.16, 35.33, 30.92];
+
+const baseScales = {
+  x:{ grid:{display:false}, ticks:{font:{size:11,family:'Outfit'}, color:'#7A8FAD', maxRotation:0} },
+  y:{ grid:{color:'rgba(27,58,107,0.06)'}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD'} }
 };
 
 // Revenue chart
@@ -607,19 +609,19 @@ new Chart(document.getElementById('revChart'), {
   data:{
     labels,
     datasets:[
-      { label:'Direct Circle', data:revDC, backgroundColor:'#1B3A6B', borderRadius:3 },
-      { label:'Stock Partners', data:revPart, backgroundColor:'#C9A84C', borderRadius:3 }
+      { label:'Direct Circle', data:revDC, backgroundColor:'#1B3A6B', borderRadius:4 },
+      { label:'Stock Partners', data:revPart, backgroundColor:'#C9A84C', borderRadius:4 }
     ]
   },
   options:{
-    ...chartDefaults,
+    responsive:true, maintainAspectRatio:false,
     plugins:{
       legend:{display:true, position:'top', labels:{font:{size:11,family:'Outfit'}, boxWidth:10, boxHeight:10, color:'#3D5278', padding:16}},
       tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toLocaleString('fr-FR')+' €'}}
     },
     scales:{
-      x:{ stacked:true, grid:{display:false}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', maxRotation:0} },
-      y:{ stacked:true, grid:{color:'rgba(27,58,107,0.06)'}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', callback:v=>v>=1000?(v/1000)+'k €':v+' €'} }
+      x:{...baseScales.x, stacked:true},
+      y:{...baseScales.y, stacked:true, ticks:{...baseScales.y.ticks, callback:v=>v>=1000?(v/1000).toFixed(0)+'k €':v+' €'}}
     }
   }
 });
@@ -629,17 +631,17 @@ new Chart(document.getElementById('casesChart'), {
   type:'bar',
   data:{
     labels,
-    datasets:[{ label:'DC Cases', data:casesDC, backgroundColor:'#4A7CC7', borderRadius:3 }]
+    datasets:[{ label:'DC Cases', data:casesDC, backgroundColor:'#4A7CC7', borderRadius:4 }]
   },
   options:{
-    ...chartDefaults,
+    responsive:true, maintainAspectRatio:false,
     plugins:{
       legend:{display:false},
       tooltip:{callbacks:{label:ctx=>'Cases: '+ctx.parsed.y.toFixed(1)}}
     },
     scales:{
-      x:{ grid:{display:false}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', maxRotation:0} },
-      y:{ grid:{color:'rgba(27,58,107,0.06)'}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', callback:v=>v+' cs'} }
+      x:{...baseScales.x},
+      y:{...baseScales.y, ticks:{...baseScales.y.ticks, callback:v=>v+' cs'}}
     }
   }
 });

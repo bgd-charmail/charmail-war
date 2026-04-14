@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Château Charmail — WAR W13 2026</title>
+<title>Château Charmail — WAR W14+W15 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
@@ -15,6 +15,7 @@
   --text:#0F1E38; --text-mid:#3D5278; --text-muted:#7A8FAD;
   --border:rgba(27,58,107,0.12); --border-soft:rgba(27,58,107,0.06);
   --success:#0E7C4A; --success-bg:#E6F4EE; --warn-bg:#FEF6E4; --warn:#92600A;
+  --red:#C0392B;
 }
 body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans-serif; font-weight:300; font-size:14px; line-height:1.5; }
 
@@ -34,45 +35,70 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
 .section-head h2 { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue); }
 .section-head .period { margin-left:auto; font-size:10px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); }
 
+/* COMPARISON HERO */
+.comp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:1.5rem; }
+.comp-card { background:var(--white); padding:1.1rem 1.25rem; }
+.comp-card.hl { background:var(--blue); }
+.comp-card.hl .comp-label,.comp-card.hl .comp-sub { color:rgba(255,255,255,0.55); }
+.comp-card.hl .comp-val { color:var(--white); }
+.comp-label { font-size:9px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px; }
+.comp-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:3px; }
+.comp-sub { font-size:10px; color:var(--text-muted); }
+.comp-val { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--blue); }
+.comp-val.big { font-size:1.8rem; }
+.comp-val.muted { color:var(--text-muted); font-size:1.1rem; }
+.divider-line { height:1px; background:var(--border); margin:6px 0; }
+.comp-delta { font-size:11px; font-weight:600; margin-top:5px; }
+.comp-delta.pos { color:var(--success); } .comp-delta.neg { color:var(--red); }
+
+/* CASH */
 .cash-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
 .cash-card { background:var(--white); padding:1.1rem 1.25rem; }
 .cash-card.hl { background:var(--blue); }
 .cash-card.hl .cash-label { color:rgba(255,255,255,0.55); }
 .cash-card.hl .cash-val { color:var(--white); }
 .cash-label { font-size:9px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:5px; }
-.cash-val { font-family:'Playfair Display',serif; font-size:1.45rem; font-weight:400; color:var(--blue); }
+.cash-val { font-family:'Playfair Display',serif; font-size:1.45rem; color:var(--blue); }
 .cash-note { font-size:10px; color:var(--text-muted); margin-top:3px; }
-.cash-late { font-size:10px; color:var(--success); font-weight:500; margin-top:3px; }
+.cash-up { font-size:10px; color:var(--success); font-weight:500; margin-top:3px; }
 
+/* REVENUE TABLE */
 .rev-table { width:100%; border-collapse:collapse; }
 .rev-table thead tr { border-bottom:2px solid var(--blue-pale); }
-.rev-table th { font-size:9px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); padding:0 1rem 0.6rem; text-align:left; }
+.rev-table th { font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); padding:0 1rem 0.6rem; text-align:left; }
 .rev-table th.r { text-align:right; }
+.rev-table th.y25 { color:#AAB8CC; font-style:italic; }
+.rev-table th.y26 { color:var(--blue-mid); }
 .rev-table tbody tr { border-bottom:1px solid var(--border-soft); transition:background 0.1s; }
 .rev-table tbody tr:hover { background:var(--blue-ghost); }
 .rev-table tbody tr.sub td { padding-left:2.5rem; font-size:12px; color:var(--text-mid); }
 .rev-table td { padding:0.7rem 1rem; font-size:13px; }
 .rev-table td.r { text-align:right; font-variant-numeric:tabular-nums; }
+.rev-table td.muted { color:var(--text-muted); }
 .rev-table tfoot tr { border-top:2px solid var(--blue-pale); }
 .rev-table tfoot td { padding:0.75rem 1rem; font-weight:600; font-size:13px; }
 .rev-table tfoot td.r { text-align:right; }
-.dp { color:var(--success); font-size:11px; } .dn { color:#C0392B; font-size:11px; }
+.dp { color:var(--success); font-size:11px; font-weight:600; }
+.dn { color:var(--red); font-size:11px; font-weight:600; }
 .avg { display:inline-block; font-size:10px; color:var(--text-muted); background:var(--blue-ghost); padding:2px 6px; border-radius:3px; }
 
-.tabs { display:flex; gap:2px; margin-bottom:1.5rem; background:var(--blue-pale); border-radius:6px; padding:3px; width:fit-content; }
+/* TABS */
+.tabs { display:flex; gap:2px; margin-bottom:1.5rem; background:var(--blue-pale); border-radius:6px; padding:3px; width:fit-content; flex-wrap:wrap; }
 .tab { padding:6px 18px; font-family:'Outfit',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border:none; background:transparent; color:var(--text-muted); cursor:pointer; border-radius:4px; transition:all 0.15s; }
 .tab.active { background:var(--blue); color:var(--white); }
 .panel { display:none; } .panel.active { display:block; }
 
+/* KPI */
 .kpi-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:1.5rem; }
 .kpi { background:var(--white); padding:1.1rem 1.25rem; }
 .kpi-label { font-size:9px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; }
-.kpi-value { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:400; color:var(--blue); line-height:1; }
+.kpi-value { font-family:'Playfair Display',serif; font-size:2rem; color:var(--blue); line-height:1; }
 .kpi-unit { font-size:10px; color:var(--text-muted); margin-top:4px; }
 
+/* CASES TABLE */
 .cat-table { width:100%; border-collapse:collapse; }
 .cat-table thead tr { border-bottom:2px solid var(--blue-pale); }
-.cat-table th { font-size:9px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); padding:0 1rem 0.6rem; text-align:left; }
+.cat-table th { font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); padding:0 1rem 0.6rem; text-align:left; }
 .cat-table th.r { text-align:right; }
 .cat-table tbody tr { border-bottom:1px solid var(--border-soft); transition:background 0.1s; }
 .cat-table tbody tr:hover { background:var(--blue-ghost); }
@@ -82,7 +108,6 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
 .cat-table tfoot td { padding:0.7rem 1rem; font-weight:600; font-size:13px; }
 .cat-table tfoot td.r { text-align:right; }
 .zero td { color:var(--text-muted) !important; opacity:0.4; }
-
 .cat-name { display:flex; align-items:flex-start; gap:10px; }
 .cat-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-top:4px; }
 .cat-label-wrap { flex:1; min-width:0; }
@@ -97,10 +122,10 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
 .detail-item-val { font-size:10px; white-space:nowrap; padding-left:12px; color:var(--text-muted); }
 
 .badge { display:inline-block; font-size:8px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:2px 5px; border-radius:3px; margin-left:4px; vertical-align:middle; }
-.badge-pdf { background:var(--warn-bg); color:var(--warn); }
 .badge-new { background:var(--success-bg); color:var(--success); }
 .badge-rec { background:var(--blue-pale); color:var(--blue-mid); }
 
+/* PARTNER TABLE */
 .partner-table { width:100%; border-collapse:collapse; }
 .partner-table thead tr { border-bottom:2px solid var(--blue-pale); }
 .partner-table th { font-size:9px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); padding:0 1rem 0.6rem; text-align:left; }
@@ -117,13 +142,13 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
 .dot-on { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--success); margin-right:5px; vertical-align:middle; }
 .dot-new { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--gold); margin-right:5px; vertical-align:middle; }
 
+/* MEMBERS */
 .members-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:1.25rem; }
 .member-card { background:var(--white); padding:1rem 1.25rem; }
 .member-label { font-size:9px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; }
 .member-value { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--blue); line-height:1; }
 .member-sub { font-size:10px; color:var(--text-muted); margin-top:3px; }
 .member-delta { font-size:11px; color:var(--success); font-weight:500; margin-top:3px; }
-
 .members-breakdown { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; }
 .mb-card { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; }
 .mb-region { font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--blue-light); margin-bottom:10px; }
@@ -131,6 +156,7 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
 .mb-row:last-child { border-bottom:none; }
 .mb-row span:last-child { font-weight:500; color:var(--blue); }
 
+/* STOCK */
 .stock-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .stock-card { background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
 .stock-head { background:var(--blue); color:var(--white); padding:0.6rem 1.25rem; font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; display:flex; justify-content:space-between; align-items:center; }
@@ -142,6 +168,11 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
 .stock-table td:last-child { text-align:right; font-variant-numeric:tabular-nums; color:var(--blue); font-weight:500; }
 .stock-total { background:var(--blue-ghost); }
 .stock-total td { font-weight:600; }
+
+.chart-tabs { display:flex; gap:2px; margin-bottom:1.25rem; background:var(--blue-pale); border-radius:6px; padding:3px; width:fit-content; }
+.ctab { padding:6px 18px; font-family:'Outfit',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border:none; background:transparent; color:var(--text-muted); cursor:pointer; border-radius:4px; transition:all 0.15s; }
+.ctab.active { background:var(--blue); color:var(--white); }
+.chart-panel { display:none; } .chart-panel.active { display:block; }
 
 .footer { margin-top:3rem; padding:1.25rem 0 0; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:10px; color:var(--text-muted); letter-spacing:0.05em; }
 .footer-logo { font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--blue); }
@@ -161,188 +192,237 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
     <h1>Château Charmail<br><em>Sales Dashboard</em></h1>
   </div>
   <div class="header-right">
-    <div class="header-week">Week 13</div>
-    <div class="header-date">23 – 29 March 2026</div>
+    <div class="header-week">Weeks 14 + 15</div>
+    <div class="header-date">30 Mar – 12 Apr 2026</div>
     <div class="header-by">By Bertille GL</div>
   </div>
 </div>
 
 <div class="main">
 
+  <!-- ⚡ SNAPSHOT 2026 vs 2025 -->
+  <div class="section">
+    <div class="section-head"><span class="section-number">⚡</span><h2>2026 vs 2025 — Snapshot W14+W15</h2><span class="period">30 Mar – 12 Apr</span></div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-label">Revenue Total</div>
+        <div class="comp-row"><span class="comp-sub">2025</span><span class="comp-val muted">7 467 €</span></div>
+        <div class="divider-line"></div>
+        <div class="comp-row"><span class="comp-sub">2026</span><span class="comp-val">7 411 €</span></div>
+        <div class="comp-delta neg">−0.7% vs 2025</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Direct Circle Rev.</div>
+        <div class="comp-row"><span class="comp-sub">2025</span><span class="comp-val muted">4 767 €</span></div>
+        <div class="divider-line"></div>
+        <div class="comp-row"><span class="comp-sub">2026</span><span class="comp-val">7 396 €</span></div>
+        <div class="comp-delta pos">+55.2% ↑</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Direct Circle Cases</div>
+        <div class="comp-row"><span class="comp-sub">2025</span><span class="comp-val muted">21.5</span></div>
+        <div class="divider-line"></div>
+        <div class="comp-row"><span class="comp-sub">2026</span><span class="comp-val">29.0</span></div>
+        <div class="comp-delta pos">+34.9% ↑</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">YTD Direct Circle Rev.</div>
+        <div class="comp-row"><span class="comp-sub">2025</span><span class="comp-val muted">21 783 €</span></div>
+        <div class="divider-line"></div>
+        <div class="comp-row"><span class="comp-sub">2026</span><span class="comp-val">33 034 €</span></div>
+        <div class="comp-delta pos">+51.7% ↑</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">YTD DC Cases</div>
+        <div class="comp-row"><span class="comp-sub">2025</span><span class="comp-val muted">119.1</span></div>
+        <div class="divider-line"></div>
+        <div class="comp-row"><span class="comp-sub">2026</span><span class="comp-val">149</span></div>
+        <div class="comp-delta pos">+25.1% ↑</div>
+      </div>
+      <div class="comp-card hl">
+        <div class="comp-label">Avg. € / bottle</div>
+        <div class="comp-row"><span class="comp-sub">2025 YTD</span><span class="comp-val muted" style="color:rgba(255,255,255,0.5);">—</span></div>
+        <div class="divider-line" style="background:rgba(255,255,255,0.15)"></div>
+        <div class="comp-row"><span class="comp-sub">2026 W14+W15</span><span class="comp-val" style="color:var(--gold-light);">20.89 €</span></div>
+        <div class="comp-delta pos" style="color:#9FE1CB;">DC · all channels 16.70 €</div>
+      </div>
+    </div>
+  </div>
+
   <!-- 01 CASH -->
   <div class="section">
     <div class="section-head"><span class="section-number">01</span><h2>Cash Position</h2></div>
     <div class="cash-grid">
-      <div class="cash-card"><div class="cash-label">Qonto</div><div class="cash-val">219 792 €</div></div>
+      <div class="cash-card"><div class="cash-label">Qonto</div><div class="cash-val">351 253 €</div></div>
       <div class="cash-card"><div class="cash-label">CAAQ</div><div class="cash-val">164 881 €</div></div>
       <div class="cash-card"><div class="cash-label">CIC</div><div class="cash-val">0 €</div><div class="cash-note">Bank opening if RCF</div></div>
-      <div class="cash-card"><div class="cash-label">Late Flows</div><div class="cash-val">16 000 €</div><div class="cash-late">↗ incoming</div></div>
+      <div class="cash-card"><div class="cash-label">Late Flows</div><div class="cash-val">16 000 €</div><div class="cash-up">↗ incoming</div></div>
       <div class="cash-card"><div class="cash-label">RCF Available</div><div class="cash-val">0 €</div><div class="cash-note">1m RCF in negotiation</div></div>
       <div class="cash-card"><div class="cash-label">Bank Debt</div><div class="cash-val">0 €</div></div>
-      <div class="cash-card hl"><div class="cash-label">Net Cash</div><div class="cash-val">400 673 €</div></div>
+      <div class="cash-card hl"><div class="cash-label">Net Cash</div><div class="cash-val">532 134 €</div></div>
     </div>
   </div>
 
   <!-- 02 REVENUE -->
   <div class="section">
-    <div class="section-head"><span class="section-number">02</span><h2>Charmail Diffusion — Sales Invoiced HT</h2><span class="period">Shopify · excl. transport</span></div>
+    <div class="section-head"><span class="section-number">02</span><h2>Charmail Diffusion — Sales Invoiced HT</h2><span class="period">2026 vs 2025 YTD</span></div>
     <table class="rev-table">
-      <thead><tr><th>Channel</th><th class="r">This Week</th><th class="r">MTD</th><th class="r">YTD 2026</th><th class="r">YTD 2025</th><th class="r">Δ %</th><th class="r">Avg €/btl</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th class="r y26">2026 W14+W15</th>
+          <th class="r y26">2026 YTD</th>
+          <th class="r y25">2025 YTD</th>
+          <th class="r">Δ % YTD</th>
+          <th class="r">Avg €/btl</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td><strong>Total Invoiced</strong></td><td class="r"><strong>4 723 €</strong></td><td class="r"><strong>9 371 €</strong></td><td class="r"><strong>48 577 €</strong></td><td class="r"><strong>708 286 €</strong></td><td class="r"><span class="dn">−93.1%</span></td><td class="r"><span class="avg">16.32 €</span></td></tr>
-        <tr class="sub"><td>1. Direct Circle</td><td class="r">4 708 €</td><td class="r">9 356 €</td><td class="r">25 668 €</td><td class="r">16 415 €</td><td class="r"><span class="dp">+56.4%</span></td><td class="r"><span class="avg">21.28 €</span></td></tr>
-        <tr class="sub"><td>2. On-Demand Partners</td><td class="r">—</td><td class="r">—</td><td class="r">155 €</td><td class="r">12 839 €</td><td class="r"><span class="dn">−98.8%</span></td><td class="r"><span class="avg">12.89 €</span></td></tr>
-        <tr class="sub"><td>3. Stock Partners</td><td class="r">—</td><td class="r">—</td><td class="r">21 039 €</td><td class="r">21 669 €</td><td class="r"><span class="dn">−2.9%</span></td><td class="r"><span class="avg">13.49 €</span></td></tr>
-        <tr class="sub"><td>4. PortoVino / USA Gateway</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">657 363 €</td><td class="r"><span class="dn">−100%</span></td><td class="r">—</td></tr>
-        <tr class="sub"><td>5. Other Revenues (Transport)</td><td class="r">15 €</td><td class="r">15 €</td><td class="r">1 716 €</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
+        <tr>
+          <td><strong>Total Invoiced</strong></td>
+          <td class="r"><strong>7 411 €</strong></td>
+          <td class="r"><strong>55 959 €</strong></td>
+          <td class="r muted"><strong>716 562 €</strong></td>
+          <td class="r"><span class="dn">−92.2%*</span></td>
+          <td class="r"><span class="avg">16.70 €</span></td>
+        </tr>
+        <tr class="sub">
+          <td>1. Direct Circle</td>
+          <td class="r">7 396 €</td>
+          <td class="r">33 034 €</td>
+          <td class="r muted">21 783 €</td>
+          <td class="r"><span class="dp">+51.7%</span></td>
+          <td class="r"><span class="avg">20.89 €</span></td>
+        </tr>
+        <tr class="sub">
+          <td>2. On-Demand Partners</td>
+          <td class="r">—</td>
+          <td class="r">155 €</td>
+          <td class="r muted">12 839 €</td>
+          <td class="r"><span class="dn">−98.8%</span></td>
+          <td class="r"><span class="avg">12.89 €</span></td>
+        </tr>
+        <tr class="sub">
+          <td>3. Stock Partners</td>
+          <td class="r">—</td>
+          <td class="r">21 039 €</td>
+          <td class="r muted">24 577 €</td>
+          <td class="r"><span class="dn">−14.4%</span></td>
+          <td class="r"><span class="avg">13.49 €</span></td>
+        </tr>
+        <tr class="sub">
+          <td>4. PortoVino / USA Gateway</td>
+          <td class="r">—</td>
+          <td class="r">—</td>
+          <td class="r muted">657 363 €</td>
+          <td class="r"><span class="dn">−100%</span></td>
+          <td class="r">—</td>
+        </tr>
+        <tr class="sub">
+          <td>5. Transport & Prestation</td>
+          <td class="r">15 €</td>
+          <td class="r">1 731 €</td>
+          <td class="r muted">—</td>
+          <td class="r">—</td>
+          <td class="r">—</td>
+        </tr>
       </tbody>
     </table>
+    <p style="font-size:10px;color:var(--text-muted);margin-top:8px;">* YTD Δ total dominated by absence of PortoVino USA (657k€ in 2025). Direct Circle +52% YTD is the key KPI.</p>
   </div>
 
   <!-- 03 DIRECT CIRCLE -->
   <div class="section">
     <div class="section-head"><span class="section-number">03</span><h2>Direct Circle — Volume (Cases of 12)</h2></div>
     <div class="tabs">
-      <button class="tab active" onclick="switchTab('week',this)">This Week (W13)</button>
-      <button class="tab" onclick="switchTab('mtd',this)">MTD — March</button>
-      <button class="tab" onclick="switchTab('ytd',this)">YTD — 2026</button>
+      <button class="tab active" onclick="switchTab('combined',this)">W14+W15 Combined</button>
+      <button class="tab" onclick="switchTab('ytd',this)">YTD — Sub-categories</button>
     </div>
 
-    <!-- THIS WEEK -->
-    <div id="week" class="panel active">
+    <!-- W14+W15 COMBINED -->
+    <div id="combined" class="panel active">
       <div class="kpi-row">
-        <div class="kpi"><div class="kpi-label">Total Bottles W13</div><div class="kpi-value">200</div><div class="kpi-unit">23–29 March · 13 orders</div></div>
-        <div class="kpi"><div class="kpi-label">Total Cases ÷ 12</div><div class="kpi-value">16.67</div><div class="kpi-unit">Direct Circle</div></div>
-        <div class="kpi"><div class="kpi-label">Club Charmail</div><div class="kpi-value">12.5</div><div class="kpi-unit">cases · 9 orders · 9 new members</div></div>
-        <div class="kpi"><div class="kpi-label">Vente à la Propriété</div><div class="kpi-value">4.2</div><div class="kpi-unit">cases · 4 orders</div></div>
+        <div class="kpi"><div class="kpi-label">Total Cases W14+W15</div><div class="kpi-value">29.0</div><div class="kpi-unit">WAR total · 20 orders</div></div>
+        <div class="kpi"><div class="kpi-label">April MTD</div><div class="kpi-value">29.0</div><div class="kpi-unit">cases · DC EU 29 + US 0 + UK 0</div></div>
+        <div class="kpi"><div class="kpi-label">CHR Direct</div><div class="kpi-value">10.5</div><div class="kpi-unit">cases · Lafayette restock</div></div>
+        <div class="kpi"><div class="kpi-label">Vente à la Propriété</div><div class="kpi-value">12.3</div><div class="kpi-unit">cases · 12 orders</div></div>
       </div>
       <table class="cat-table">
         <thead><tr><th>Sub-category</th><th class="r">Bottles</th><th class="r">Cases</th><th class="r">% vol.</th></tr></thead>
         <tbody>
           <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:var(--blue)"></div><div class="cat-label-wrap">
-              <div class="cat-label">Club Charmail</div>
-              <div class="bar-track"><div class="bar-fill" style="width:75%;background:var(--blue)"></div></div>
-              <button class="expand-btn" onclick="toggleDetail(this)">▸ 9 orders</button>
+            <td><div class="cat-name"><div class="cat-dot" style="background:#2E7D52"></div><div class="cat-label-wrap">
+              <div class="cat-label">CHR Direct</div>
+              <div class="bar-track"><div class="bar-fill" style="width:34%;background:#2E7D52"></div></div>
+              <button class="expand-btn" onclick="toggleDetail(this)">▸ 1 order</button>
               <div class="detail-list">
-                <div class="detail-item"><span>Jean-Pascal Porcherot <span class="badge badge-new">new member</span></span><span class="detail-item-val">36 btl · 3.0 cases</span></div>
-                <div class="detail-item"><span>Bertrand Bouhour <span class="badge badge-rec">récurrence</span></span><span class="detail-item-val">24 btl · 2.0 cases</span></div>
-                <div class="detail-item"><span>Bruno CHENET <span class="badge badge-new">new member</span></span><span class="detail-item-val">18 btl · 1.5 cases</span></div>
-                <div class="detail-item"><span>Gilles Denoyel <span class="badge badge-new">new member</span></span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
-                <div class="detail-item"><span>Patrice CAYATTE <span class="badge badge-new">new member</span></span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
-                <div class="detail-item"><span>Martine Guinant <span class="badge badge-new">new member</span></span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
-                <div class="detail-item"><span>Grégoire Mizon <span class="badge badge-new">new member</span></span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
-                <div class="detail-item"><span>Richard Burton <span class="badge badge-new">new member</span></span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
-                <div class="detail-item"><span>Samir Assaf <span class="badge badge-new">new member</span></span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
+                <div class="detail-item"><span>Lafayette Restauration</span><span class="detail-item-val">126 btl · 10.5 cases · 1 756 € pending</span></div>
               </div>
             </div></div></td>
-            <td class="r">150</td><td class="r">12.5</td><td class="r">75.0%</td>
+            <td class="r">126</td><td class="r">10.5</td><td class="r">34.0%</td>
           </tr>
           <tr>
             <td><div class="cat-name"><div class="cat-dot" style="background:var(--blue-light)"></div><div class="cat-label-wrap">
               <div class="cat-label">Vente à la Propriété</div>
-              <div class="bar-track"><div class="bar-fill" style="width:26.5%;background:var(--blue-light)"></div></div>
-              <button class="expand-btn" onclick="toggleDetail(this)">▸ 4 orders</button>
+              <div class="bar-track"><div class="bar-fill" style="width:39.9%;background:var(--blue-light)"></div></div>
+              <button class="expand-btn" onclick="toggleDetail(this)">▸ 12 orders</button>
               <div class="detail-list">
-                <div class="detail-item"><span>MCJ Renthouse <span class="badge badge-rec">Lead Bernard</span></span><span class="detail-item-val">18 btl · 1.5 cases</span></div>
-                <div class="detail-item"><span>Élise Guigné</span><span class="detail-item-val">6 btl · 0.5 cases</span></div>
-                <div class="detail-item"><span>Gilles Sentenac</span><span class="detail-item-val">6 btl · 0.5 cases</span></div>
-                <div class="detail-item"><span>Damien NAUD</span><span class="detail-item-val">2 btl · 0.2 cases</span></div>
+                <div class="detail-item"><span>Jean-Pierre Mitard</span><span class="detail-item-val">32 btl · 2.7 cases</span></div>
+                <div class="detail-item"><span>Denis Carles</span><span class="detail-item-val">30 btl · 2.5 cases</span></div>
+                <div class="detail-item"><span>Augustin Saint-Antoine</span><span class="detail-item-val">24 btl · 2.0 cases</span></div>
+                <div class="detail-item"><span>Gregory Harispe</span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
+                <div class="detail-item"><span>Michel Delbast</span><span class="detail-item-val">8 btl · 0.7 cases</span></div>
+                <div class="detail-item"><span>Catherine Dewitte / Suzanne Roucaries / Arnaud De Clercq</span><span class="detail-item-val">18 btl · 1.5 cases</span></div>
+                <div class="detail-item"><span>Ludovic Heliot / Philippe HELIOT</span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
+                <div class="detail-item"><span>Gilles NICOLAIZEAU / ML Mourlan</span><span class="detail-item-val">4 btl · 0.3 cases</span></div>
               </div>
             </div></div></td>
-            <td class="r">32</td><td class="r">4.2</td><td class="r">25.0%</td>
+            <td class="r">148</td><td class="r">12.3</td><td class="r">39.9%</td>
           </tr>
-          <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">CHR Direct</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">0%</td></tr>
+          <tr>
+            <td><div class="cat-name"><div class="cat-dot" style="background:var(--blue)"></div><div class="cat-label-wrap">
+              <div class="cat-label">Club Charmail</div>
+              <div class="bar-track"><div class="bar-fill" style="width:22.9%;background:var(--blue)"></div></div>
+              <button class="expand-btn" onclick="toggleDetail(this)">▸ 5 orders</button>
+              <div class="detail-list">
+                <div class="detail-item"><span>Guido DUERINCKX (×2)</span><span class="detail-item-val">65 btl · 5.4 cases</span></div>
+                <div class="detail-item"><span>Nicole KLEIN</span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
+                <div class="detail-item"><span>William GLOVER</span><span class="detail-item-val">12 btl · 1.0 cases</span></div>
+                <div class="detail-item"><span>Alexandrine Zelenko</span><span class="detail-item-val">8 btl · 0.7 cases</span></div>
+                <div class="detail-item"><span>Club Jaguar customers (×2) <span class="badge badge-new">new</span></span><span class="detail-item-val">8 btl · 0.7 cases</span></div>
+              </div>
+            </div></div></td>
+            <td class="r">85</td><td class="r">7.1</td><td class="r">22.9%</td>
+          </tr>
           <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">Corporate Gifting</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">0%</td></tr>
           <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">Events / Wedding</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">0%</td></tr>
           <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">Other Direct</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">0%</td></tr>
         </tbody>
-        <tfoot><tr><td>Total W13</td><td class="r">200</td><td class="r">16.67</td><td class="r">100%</td></tr></tfoot>
+        <tfoot><tr><td>Total W14+W15</td><td class="r">371</td><td class="r">29.0</td><td class="r">100%</td></tr></tfoot>
       </table>
     </div>
 
-    <!-- MTD -->
-    <div id="mtd" class="panel">
-      <div class="kpi-row">
-        <div class="kpi"><div class="kpi-label">Total Cases MTD</div><div class="kpi-value">47</div><div class="kpi-unit">March 2026 · WAR total</div></div>
-        <div class="kpi"><div class="kpi-label">EU (hors Benelux)</div><div class="kpi-value">36</div><div class="kpi-unit">cases MTD</div></div>
-        <div class="kpi"><div class="kpi-label">Club Charmail UK</div><div class="kpi-value">11</div><div class="kpi-unit">cases MTD</div></div>
-        <div class="kpi"><div class="kpi-label">Club Charmail US</div><div class="kpi-value">0</div><div class="kpi-unit">cases MTD</div></div>
-      </div>
-      <table class="cat-table">
-        <thead><tr><th>Sub-category</th><th class="r">01–15 Mar</th><th class="r">W12 (16–22)</th><th class="r">W13 (23–29)</th><th class="r">Total cases</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:var(--blue)"></div><div class="cat-label">Club Charmail</div></div></td>
-            <td class="r">2.0</td><td class="r">14.1</td><td class="r">12.5</td><td class="r"><strong>29.1</strong></td>
-          </tr>
-          <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:var(--blue-light)"></div><div class="cat-label">Vente à la Propriété</div></div></td>
-            <td class="r">—</td><td class="r">—</td><td class="r">4.2</td><td class="r"><strong>4.2</strong></td>
-          </tr>
-          <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:#2E7D52"></div><div class="cat-label">CHR Direct</div></div></td>
-            <td class="r">1.0</td><td class="r">—</td><td class="r">—</td><td class="r"><strong>1.0</strong></td>
-          </tr>
-          <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">Corporate Gifting</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
-          <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">Events / Wedding</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
-          <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">Other Direct</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
-        </tbody>
-        <tfoot><tr><td>Total March</td><td class="r">3.0</td><td class="r">14.1</td><td class="r">16.67</td><td class="r">33.77</td></tr></tfoot>
-      </table>
-    </div>
-
-    <!-- YTD -->
+    <!-- YTD SUB-CATEGORIES -->
     <div id="ytd" class="panel">
       <div class="kpi-row">
-        <div class="kpi"><div class="kpi-label">Total Cases YTD</div><div class="kpi-value">118</div><div class="kpi-unit">01 Jan – 29 Mar · WAR total</div></div>
-        <div class="kpi"><div class="kpi-label">EU (hors Benelux)</div><div class="kpi-value">101</div><div class="kpi-unit">cases YTD</div></div>
-        <div class="kpi"><div class="kpi-label">Club Charmail UK</div><div class="kpi-value">11</div><div class="kpi-unit">cases YTD</div></div>
-        <div class="kpi"><div class="kpi-label">Club Charmail US</div><div class="kpi-value">6</div><div class="kpi-unit">cases YTD</div></div>
+        <div class="kpi"><div class="kpi-label">Total Cases YTD</div><div class="kpi-value">149</div><div class="kpi-unit">01 Jan – 12 Apr 2026 · WAR</div></div>
+        <div class="kpi"><div class="kpi-label">Club Charmail</div><div class="kpi-value">70.8</div><div class="kpi-unit">cases · 54% · 47 orders</div></div>
+        <div class="kpi"><div class="kpi-label">CHR Direct</div><div class="kpi-value">19.5</div><div class="kpi-unit">cases · 15% · 5 orders</div></div>
+        <div class="kpi"><div class="kpi-label">Vente à la Propriété</div><div class="kpi-value">16.7</div><div class="kpi-unit">cases · 13% · 18 orders</div></div>
       </div>
       <table class="cat-table">
-        <thead><tr><th>Sub-category</th><th class="r">YTD Bottles</th><th class="r">YTD Cases</th><th class="r">% vol.</th></tr></thead>
+        <thead><tr><th>Sub-category</th><th class="r">Bottles</th><th class="r">Cases (÷12)</th><th class="r">% vol.</th><th class="r">Orders</th></tr></thead>
         <tbody>
-          <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:var(--blue)"></div><div class="cat-label-wrap">
-              <div class="cat-label">Club Charmail</div>
-              <div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--blue)"></div></div>
-            </div></div></td>
-            <td class="r">757</td><td class="r">63.1</td><td class="r">62.0%</td>
-          </tr>
-          <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:var(--gold)"></div><div class="cat-label-wrap">
-              <div class="cat-label">Corporate Gifting</div>
-              <div class="bar-track"><div class="bar-fill" style="width:15.1%;background:var(--gold)"></div></div>
-            </div></div></td>
-            <td class="r">182</td><td class="r">15.2</td><td class="r">15.1%</td>
-          </tr>
-          <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:var(--text-muted)"></div><div class="cat-label-wrap">
-              <div class="cat-label">Other Direct</div>
-              <div class="bar-track"><div class="bar-fill" style="width:8.4%;background:var(--text-muted)"></div></div>
-            </div></div></td>
-            <td class="r">102</td><td class="r">8.5</td><td class="r">8.4%</td>
-          </tr>
-          <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:#2E7D52"></div><div class="cat-label-wrap">
-              <div class="cat-label">CHR Direct</div>
-              <div class="bar-track"><div class="bar-fill" style="width:7.5%;background:#2E7D52"></div></div>
-            </div></div></td>
-            <td class="r">108</td><td class="r">9.0</td><td class="r">7.5%</td>
-          </tr>
-          <tr>
-            <td><div class="cat-name"><div class="cat-dot" style="background:var(--blue-light)"></div><div class="cat-label-wrap">
-              <div class="cat-label">Vente à la Propriété</div>
-              <div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--blue-light)"></div></div>
-            </div></div></td>
-            <td class="r">56</td><td class="r">6.5</td><td class="r">7.0%</td>
-          </tr>
-          <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">Events / Wedding</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">0%</td></tr>
+          <tr><td><div class="cat-name"><div class="cat-dot" style="background:var(--blue)"></div><div class="cat-label-wrap"><div class="cat-label">Club Charmail</div><div class="bar-track"><div class="bar-fill" style="width:54.2%;background:var(--blue)"></div></div></div></div></td><td class="r">850</td><td class="r">70.8</td><td class="r">54.2%</td><td class="r">47</td></tr>
+          <tr><td><div class="cat-name"><div class="cat-dot" style="background:#2E7D52"></div><div class="cat-label-wrap"><div class="cat-label">CHR Direct</div><div class="bar-track"><div class="bar-fill" style="width:14.9%;background:#2E7D52"></div></div></div></div></td><td class="r">234</td><td class="r">19.5</td><td class="r">14.9%</td><td class="r">5</td></tr>
+          <tr><td><div class="cat-name"><div class="cat-dot" style="background:var(--blue-light)"></div><div class="cat-label-wrap"><div class="cat-label">Vente à la Propriété</div><div class="bar-track"><div class="bar-fill" style="width:12.8%;background:var(--blue-light)"></div></div></div></div></td><td class="r">200</td><td class="r">16.7</td><td class="r">12.8%</td><td class="r">18</td></tr>
+          <tr><td><div class="cat-name"><div class="cat-dot" style="background:var(--gold)"></div><div class="cat-label-wrap"><div class="cat-label">Corporate Gifting</div><div class="bar-track"><div class="bar-fill" style="width:11.6%;background:var(--gold)"></div></div></div></div></td><td class="r">182</td><td class="r">15.2</td><td class="r">11.6%</td><td class="r">4</td></tr>
+          <tr><td><div class="cat-name"><div class="cat-dot" style="background:var(--text-muted)"></div><div class="cat-label-wrap"><div class="cat-label">Other Direct</div><div class="bar-track"><div class="bar-fill" style="width:6.5%;background:var(--text-muted)"></div></div></div></div></td><td class="r">102</td><td class="r">8.5</td><td class="r">6.5%</td><td class="r">2</td></tr>
+          <tr class="zero"><td><div class="cat-name"><div class="cat-dot" style="background:#ccc"></div><div class="cat-label">Events / Wedding</div></div></td><td class="r">—</td><td class="r">—</td><td class="r">0%</td><td class="r">0</td></tr>
         </tbody>
-        <tfoot><tr><td>Total YTD Direct Circle</td><td class="r">~1 205</td><td class="r">102.3</td><td class="r">100%</td></tr></tfoot>
+        <tfoot><tr><td>Total YTD Direct Circle</td><td class="r">1 568</td><td class="r">130.7</td><td class="r">100%</td><td class="r">76</td></tr></tfoot>
       </table>
-      <p style="font-size:10px;color:var(--text-muted);margin-top:8px;">WAR total YTD = 118 cases (EU 101 + UK 11 + US 6). Shopify sub-category split estimated from available data.</p>
+      <p style="font-size:10px;color:var(--text-muted);margin-top:8px;">01 Jan – 12 Apr 2026 · incl. SCEA Chateau Charmail (PDF, 90 btl) in Other Direct · WAR total YTD = 149 cases (EU 132 + US 6 + UK 11).</p>
     </div>
   </div>
 
@@ -350,16 +430,16 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
   <div class="section">
     <div class="section-head"><span class="section-number">04</span><h2>Indirect / Partner Sales (Cases)</h2></div>
     <table class="partner-table">
-      <thead><tr><th>Partner</th><th class="r">Month</th><th class="r">YTD</th><th>Notes</th></tr></thead>
+      <thead><tr><th>Partner</th><th class="r">W14+W15</th><th class="r">YTD</th><th>Notes</th></tr></thead>
       <tbody>
         <tr class="gh"><td colspan="4">On-Demand Partners</td></tr>
         <tr><td><span class="dot-on"></span>Free Grape Society (Sweden)</td><td class="r">1</td><td class="r">1</td><td class="note-cell">Launch in Sweden in May · "wine tournée"</td></tr>
         <tr><td>Cana Merchants</td><td class="r">—</td><td class="r">—</td><td class="note-cell"></td></tr>
         <tr class="gh"><td colspan="4">Stock Partners — France</td></tr>
         <tr><td>Version Vin</td><td class="r">0</td><td class="r">—</td><td class="note-cell">petit push post-Vivien · stats incoming</td></tr>
-        <tr><td>Millesimes</td><td class="r">—</td><td class="r">—</td><td class="note-cell">push for "verticale millésimes"</td></tr>
+        <tr><td>Millesimes</td><td class="r">—</td><td class="r">—</td><td class="note-cell">push "verticale millésimes"</td></tr>
         <tr class="gh"><td colspan="4">Stock Partners — Switzerland</td></tr>
-        <tr><td><span class="dot-on"></span>Pierre Wyss</td><td class="r"><strong>85</strong></td><td class="r"><strong>85</strong></td><td class="note-cell"></td></tr>
+        <tr><td><span class="dot-on"></span>Pierre Wyss</td><td class="r">—</td><td class="r"><strong>85</strong></td><td class="note-cell"></td></tr>
         <tr><td>Berthaudin</td><td class="r">—</td><td class="r">—</td><td class="note-cell">Last order: June 2025</td></tr>
         <tr><td>TerraVigna</td><td class="r">—</td><td class="r">—</td><td class="note-cell">Last order: Oct 2025</td></tr>
         <tr><td><span class="dot-new"></span>ViniWine SÀRL</td><td class="r">—</td><td class="r">—</td><td class="note-cell">🆕 NEW PROSPECT · rdv 10/04 Geneva</td></tr>
@@ -368,14 +448,14 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
         <tr><td>Banquist</td><td class="r">—</td><td class="r">—</td><td class="note-cell">Last order: Dec 2025</td></tr>
         <tr><td>Wine Society</td><td class="r">—</td><td class="r">—</td><td class="note-cell">In talks · tried 2019/2020</td></tr>
         <tr class="gh"><td colspan="4">Stock Partners — Luxembourg</td></tr>
-        <tr><td><span class="dot-on"></span>Secret Wines</td><td class="r"><strong>45</strong></td><td class="r"><strong>45</strong></td><td class="note-cell"></td></tr>
+        <tr><td><span class="dot-on"></span>Secret Wines</td><td class="r">—</td><td class="r"><strong>45</strong></td><td class="note-cell"></td></tr>
         <tr class="gh"><td colspan="4">Stock Partners — Others</td></tr>
         <tr><td>La Cave du Port Franc (St Barth)</td><td class="r">—</td><td class="r">—</td><td class="note-cell">Last order: Oct 2025</td></tr>
         <tr><td>MT Vins (Brazil)</td><td class="r">—</td><td class="r">—</td><td class="note-cell">Last order: May 2025</td></tr>
         <tr><td>Africa via Thierry</td><td class="r">—</td><td class="r">—</td><td class="note-cell">Order coming in May, not invoiced yet</td></tr>
-        <tr><td>Zillertal Bier</td><td class="r">—</td><td class="r">—</td><td class="note-cell">In negotiations for a new order...</td></tr>
+        <tr><td>Zillertal Bier</td><td class="r">—</td><td class="r">—</td><td class="note-cell">In negotiations for a new order</td></tr>
       </tbody>
-      <tfoot><tr><td>Total Indirect</td><td class="r"><strong>1</strong></td><td class="r"><strong>131</strong></td><td></td></tr></tfoot>
+      <tfoot><tr><td>Total Indirect</td><td class="r"><strong>0</strong></td><td class="r"><strong>131</strong></td><td></td></tr></tfoot>
     </table>
   </div>
 
@@ -385,20 +465,20 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
     <div class="members-grid">
       <div class="member-card">
         <div class="member-label">Total CC Members</div>
-        <div class="member-value">730</div>
-        <div class="member-sub">EU 537 · USA 126 · UK 32 · Benelux 35</div>
-        <div class="member-delta">↑ +13 vs W12 (717)</div>
+        <div class="member-value">746</div>
+        <div class="member-sub">EU 553 · USA 126 · UK 32 · Benelux 35</div>
+        <div class="member-delta">↑ +16 vs W13 (730)</div>
       </div>
       <div class="member-card">
         <div class="member-label">New Members YTD 2026</div>
-        <div class="member-value">102</div>
-        <div class="member-sub">EU 86 · USA 5 · UK 3 · Benelux 8</div>
-        <div class="member-delta">↑ +13 vs W12 (89)</div>
+        <div class="member-value">118</div>
+        <div class="member-sub">EU 102 · USA 5 · UK 3 · Benelux 8</div>
+        <div class="member-delta">↑ +16 vs W13 (102)</div>
       </div>
       <div class="member-card">
-        <div class="member-label">New This Week</div>
-        <div class="member-value">10</div>
-        <div class="member-sub">incl. 1 French/UK member · 9 new Club Charmail</div>
+        <div class="member-label">New This Period</div>
+        <div class="member-value">20</div>
+        <div class="member-sub">W14+W15 · incl. 1 French/UK member</div>
       </div>
       <div class="member-card">
         <div class="member-label">Newsletter Database</div>
@@ -407,10 +487,10 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
       </div>
     </div>
     <div class="members-breakdown">
-      <div class="mb-card"><div class="mb-region">EU (hors Benelux) — 537 members</div>
-        <div class="mb-row"><span>Active (≤6 months)</span><span>209 <small style="color:var(--text-muted)">39%</small></span></div>
-        <div class="mb-row"><span>To watch (6–12 months)</span><span>96 <small style="color:var(--text-muted)">18%</small></span></div>
-        <div class="mb-row"><span>Dormant (+18 months)</span><span>221 <small style="color:var(--text-muted)">41%</small></span></div>
+      <div class="mb-card"><div class="mb-region">EU (hors Benelux) — 553 members</div>
+        <div class="mb-row"><span>Active (≤6 months)</span><span>220 <small style="color:var(--text-muted)">40%</small></span></div>
+        <div class="mb-row"><span>To watch (6–12 months)</span><span>96 <small style="color:var(--text-muted)">17%</small></span></div>
+        <div class="mb-row"><span>Dormant (+18 months)</span><span>221 <small style="color:var(--text-muted)">40%</small></span></div>
       </div>
       <div class="mb-card"><div class="mb-region">USA — 126 members</div>
         <div class="mb-row"><span>Active (≤6 months)</span><span>50 <small style="color:var(--text-muted)">40%</small></span></div>
@@ -418,12 +498,12 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
         <div class="mb-row"><span>Dormant (+18 months)</span><span>40 <small style="color:var(--text-muted)">32%</small></span></div>
       </div>
       <div class="mb-card"><div class="mb-region">UK — 32 members</div>
-        <div class="mb-row"><span>Active (≤6 months)</span><span>8 <small style="color:var(--text-muted)">25%</small></span></div>
+        <div class="mb-row"><span>Active (≤6 months)</span><span>9 <small style="color:var(--text-muted)">28%</small></span></div>
         <div class="mb-row"><span>To watch (6–12 months)</span><span>14 <small style="color:var(--text-muted)">44%</small></span></div>
         <div class="mb-row"><span>Dormant (+18 months)</span><span>9 <small style="color:var(--text-muted)">28%</small></span></div>
       </div>
       <div class="mb-card"><div class="mb-region">Benelux — 35 members</div>
-        <div class="mb-row"><span>Active (≤6 months)</span><span>14 <small style="color:var(--text-muted)">40%</small></span></div>
+        <div class="mb-row"><span>Active (≤6 months)</span><span>15 <small style="color:var(--text-muted)">43%</small></span></div>
         <div class="mb-row"><span>To watch (6–12 months)</span><span>4 <small style="color:var(--text-muted)">11%</small></span></div>
         <div class="mb-row"><span>Dormant (+18 months)</span><span>16 <small style="color:var(--text-muted)">46%</small></span></div>
       </div>
@@ -472,16 +552,97 @@ body { background:var(--off-white); color:var(--text); font-family:'Outfit',sans
     <p style="font-size:10px;color:var(--text-muted);margin-top:8px;">+1 176 non-sellable bottles (USA) not included in total.</p>
   </div>
 
+  <!-- 07 WEEKLY TRENDS -->
+  <div class="section">
+    <div class="section-head"><span class="section-number">07</span><h2>Weekly Trends — Revenue & Cases</h2><span class="period">Jan – Apr 2026</span></div>
+
+    <div class="chart-tabs">
+      <button class="ctab active" onclick="showChart('rev',this)">Revenue (€)</button>
+      <button class="ctab" onclick="showChart('cases',this)">DC Cases (÷12)</button>
+    </div>
+
+    <div id="chart-rev" class="chart-panel active">
+      <div style="position:relative;height:280px;margin-bottom:0.5rem;">
+        <canvas id="revChart"></canvas>
+      </div>
+    </div>
+    <div id="chart-cases" class="chart-panel">
+      <div style="position:relative;height:280px;margin-bottom:0.5rem;">
+        <canvas id="casesChart"></canvas>
+      </div>
+    </div>
+    <p style="font-size:10px;color:var(--text-muted);margin-top:8px;">W7 (Feb 9) & W8 (Feb 16) revenue spikes = Pierre Wyss 13 605 € + Secret Wines 7 434 € stock orders. DC cases = Direct Circle only, excl. samples & stock partners. W14+W15 combined.</p>
+  </div>
+
   <div class="footer">
     <span class="footer-logo">Château Charmail</span>
-    <span>WAR Week 13 · 23–29 March 2026 · Confidential · Internal use only</span>
+    <span>WAR Weeks 14+15 · 30 Mar – 12 Apr 2026 · Confidential · Internal use only</span>
   </div>
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 function switchTab(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
 function toggleDetail(btn){const l=btn.nextElementSibling;const o=l.classList.contains('open');l.classList.toggle('open');btn.textContent=o?'▸ '+btn.textContent.slice(2):'▾ hide';}
+function showChart(id,btn){document.querySelectorAll('.chart-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));document.getElementById('chart-'+id).classList.add('active');btn.classList.add('active');}
+
+const labels = ['W2\nJan 5','W3\nJan 12','W4\nJan 19','W5\nJan 26','W6\nFeb 2','W7\nFeb 9','W8\nFeb 16','W9\nFeb 23','W10\nMar 2','W11\nMar 9','W12\nMar 16','W13\nMar 23','W14+W15\nMar 30'];
+const revDC    = [2489,3498,2146,1145,1345,585,816,4289,554,101,3954,3703,7365];
+const revPart  = [0,50,105,0,0,13605,7434,0,0,0,0,0,0];
+const casesDC  = [2.75,13.00,8.75,6.00,5.50,3.00,1.58,16.08,7.00,1.00,14.08,13.25,30.92];
+
+const chartDefaults = {
+  responsive:true, maintainAspectRatio:false,
+  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toLocaleString('fr-FR')}} },
+  scales:{
+    x:{ grid:{display:false}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', maxRotation:0} },
+    y:{ grid:{color:'rgba(27,58,107,0.06)'}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD'} }
+  }
+};
+
+// Revenue chart
+new Chart(document.getElementById('revChart'), {
+  type:'bar',
+  data:{
+    labels,
+    datasets:[
+      { label:'Direct Circle', data:revDC, backgroundColor:'#1B3A6B', borderRadius:3 },
+      { label:'Stock Partners', data:revPart, backgroundColor:'#C9A84C', borderRadius:3 }
+    ]
+  },
+  options:{
+    ...chartDefaults,
+    plugins:{
+      legend:{display:true, position:'top', labels:{font:{size:11,family:'Outfit'}, boxWidth:10, boxHeight:10, color:'#3D5278', padding:16}},
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toLocaleString('fr-FR')+' €'}}
+    },
+    scales:{
+      x:{ stacked:true, grid:{display:false}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', maxRotation:0} },
+      y:{ stacked:true, grid:{color:'rgba(27,58,107,0.06)'}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', callback:v=>v>=1000?(v/1000)+'k €':v+' €'} }
+    }
+  }
+});
+
+// Cases chart
+new Chart(document.getElementById('casesChart'), {
+  type:'bar',
+  data:{
+    labels,
+    datasets:[{ label:'DC Cases', data:casesDC, backgroundColor:'#4A7CC7', borderRadius:3 }]
+  },
+  options:{
+    ...chartDefaults,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>'Cases: '+ctx.parsed.y.toFixed(1)}}
+    },
+    scales:{
+      x:{ grid:{display:false}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', maxRotation:0} },
+      y:{ grid:{color:'rgba(27,58,107,0.06)'}, ticks:{font:{size:10,family:'Outfit'}, color:'#7A8FAD', callback:v=>v+' cs'} }
+    }
+  }
+});
 </script>
 </body>
 </html>
